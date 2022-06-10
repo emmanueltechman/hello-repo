@@ -27,7 +27,7 @@ pytz==2022.1
     # via pandas
 redis==4.3.3
     # via -r requirements.in
-scikit-learn==1.0.2
+scikit-learn==1.1.1
     # via -r requirements.in
 scipy==1.8.1
     # via scikit-learn
