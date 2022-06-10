@@ -10,7 +10,7 @@ deprecated==1.2.13
     # via redis
 joblib==1.1.0
     # via scikit-learn
-numpy==1.21.5
+numpy==1.22.3
     # via
     #   pandas
     #   scikit-learn
@@ -19,11 +19,11 @@ packaging==21.3
     # via redis
 pandas==1.4.2
     # via -r requirements.in
-pyparsing==3.0.7
+pyparsing==3.0.8
     # via packaging
 python-dateutil==2.8.2
     # via pandas
-pytz==2021.3
+pytz==2022.1
     # via pandas
 redis==4.3.3
     # via -r requirements.in
@@ -33,7 +33,7 @@ scipy==1.8.1
     # via scikit-learn
 six==1.16.0
     # via python-dateutil
-threadpoolctl==3.0.0
+threadpoolctl==3.1.0
     # via scikit-learn
 wrapt==1.14.1
     # via deprecated
