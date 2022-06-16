@@ -1,0 +1,18 @@
+name: whereami-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/whereami-ci.yml'
+      - 'whereami/**'
+  pull_request:
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build whereami container
+        run: |
+          cd whereami
+          docker build --tag whereami .
