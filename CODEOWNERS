@@ -7,3 +7,4 @@
 
 # Directory-specific owners
 /windows-multi-arch/ @ibabou @liurupeng @mcshooter @pjh
+/whereami/ @theemadnes
