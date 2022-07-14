@@ -45,7 +45,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: redis
-        image: "redis"
+        image: "redis:6.2"
         command:
           - "redis-server"
         args:
@@ -57,7 +57,7 @@ spec:
             cpu: "100m"
             memory: "100Mi"
         ports:
-            - name: redis:6.2
+            - name: redis
               containerPort: 6379
               protocol: "TCP"
             - name: cluster
