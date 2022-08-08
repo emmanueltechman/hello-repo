@@ -33,7 +33,7 @@ dictConfig({
 })
 
 # set up emoji list
-emoji_list = list(emoji.unicode_codes.UNICODE_EMOJI['en'].keys())
+emoji_list = list(emoji.EMOJI_DATA.keys())
 
 
 class WhereamiPayload(object):
