@@ -60,4 +60,3 @@ spec:
           timeoutSeconds: 1
 # [END container_helloapp_redis]
 # [END gke_manifests_app_deployment_deployment_hello_web]
----

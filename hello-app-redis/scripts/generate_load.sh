@@ -16,7 +16,7 @@
 # [START gke_scripts_generate_load]
 # [START container_helloapp_redis_generate_load]
 #!/bin/bash
-# Usage: generate_load.sh <IP> <QPS>_
+# Usage: ./generate_load.sh <IP> <QPS>
 
 IP=$1
 QPS=$2

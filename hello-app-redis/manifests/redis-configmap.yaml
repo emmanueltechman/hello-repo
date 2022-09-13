@@ -27,5 +27,38 @@ data:
     protected-mode no
     dir /data
     port 6379
-# [END gke_manifests_redis_configmap_configmap_redis_cluster]
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-probes
+data:
+# [START gke_manifests_redis_configmap_configmap_redis_cluster_probes]
+  readiness.sh: |-
+    #!/bin/sh
+
+    pingResponse="$(redis-cli -h localhost ping)"
+    if [ "$?" -eq "124" ]; then
+      echo "PING timed out"
+      exit 1
+    fi
+
+    if [ "$pingResponse" != "PONG"]; then
+      echo "$pingResponse"
+      exit 1
+    fi
+  liveness.sh: |-
+    #!/bin/sh
+
+    pingResponse="$(redis-cli -h localhost ping | head -n1 | awk '{print $1;}')"
+    if [ "$?" -eq "124" ]; then
+      echo "PING timed out"
+      exit 1
+    fi
+
+    if [ "$pingResponse" != "PONG"] && [ "$pingResponse" != "LOADING" ] && [ "$pingResponse" != "MASTERDOWN" ]; then
+      echo "$pingResponse"
+      exit 1
+    fi
+# [END gke_manifests_redis_configmap_configmap_redis_cluster_probes]
+# [END gke_manifests_redis_configmap_configmap_redis_cluster]

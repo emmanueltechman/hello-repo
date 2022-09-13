@@ -31,4 +31,3 @@ spec:
   sessionAffinity: None
   type: ClusterIP
 # [END gke_manifests_redis_service_service_redis_cluster]
----
