@@ -191,6 +191,21 @@ resource "google_cloudbuild_trigger" "whereami" {
     }
 }
 
+resource "google_cloudbuild_trigger" "wi-secret-store" {
+    name = "kubernetes-engine-samples-wi-secrets"
+    filename = "security/wi-secrets/cloudbuild.yaml"
+    included_files = ["security/wi-secrets/**"]
+    description = local.trigger_description
+
+    github {
+        owner = "GoogleCloudPlatform"
+        name = "kubernetes-engine-samples"
+        push {
+            branch = "^main$"
+        }
+    }
+}
+
 resource "google_cloudbuild_trigger" "workload-metrics" {
     name = "kubernetes-engine-samples-workload-metrics"
     filename = "workload-metrics/cloudbuild.yaml"
