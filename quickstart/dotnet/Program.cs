@@ -12,38 +12,16 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-using System;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+var builder = WebApplication.CreateBuilder(args);
 
-namespace HelloGKE
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+// Google Cloud Run sets the PORT environment variable to tell this
+// process which port to listen to.
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var url = $"http://0.0.0.0:{port}";
+var target = Environment.GetEnvironmentVariable("TARGET") ?? "World";
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UsePortEnvironmentVariable();
-    }
+var app = builder.Build();
 
-    static class ProgramExtensions
-    {
-        // Google Cloud Run sets the PORT environment variable to tell this
-        // process which port to listen to.
-        public static IWebHostBuilder UsePortEnvironmentVariable(
-            this IWebHostBuilder builder)
-        {
-            string port = Environment.GetEnvironmentVariable("PORT");
-            if (!string.IsNullOrEmpty(port))
-            {
-                builder.UseUrls($"http://0.0.0.0:{port}");
-            }
-            return builder;
-        }
-    }
-}
+app.MapGet("/", () => $"Hello {target}!");
+
+app.Run(url);
