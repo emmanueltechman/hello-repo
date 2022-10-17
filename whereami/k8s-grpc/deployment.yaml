@@ -30,8 +30,20 @@ spec:
         version: v1
     spec:
       serviceAccountName: whereami-grpc-ksa
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
       - name: whereami-grpc
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
         image: us-docker.pkg.dev/google-samples/containers/gke/whereami:v1.2.12
         ports:
           - name: grpc
