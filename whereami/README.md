@@ -482,9 +482,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   wget && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  wget -O /bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/v0.4.7/grpc_health_probe-linux-amd64 && \ 
+  wget -O /bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/v0.4.13/grpc_health_probe-linux-amd64 && \
   chmod +x /bin/grpc_health_probe && \
-  wget -O /bin/curl https://github.com/moparisthebest/static-curl/releases/download/v7.81.0/curl-amd64 && \ 
+  wget -O /bin/curl https://github.com/moparisthebest/static-curl/releases/download/v7.85.0/curl-amd64 && \
   chmod +x /bin/curl
 USER cnb
 EOF
