@@ -13,6 +13,7 @@
 # limitations under the License.
 
 ---
+# [START gke_stateful_mysql_storage_class]
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -23,3 +24,4 @@ reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
   type: pd-balanced
+# [END gke_stateful_mysql_storage_class]

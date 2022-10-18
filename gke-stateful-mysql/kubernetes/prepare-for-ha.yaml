@@ -13,6 +13,7 @@
 # limitations under the License.
 
 ---
+# [START gke_stateful_mysql_deployment_three_zone_ha]
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -55,3 +56,4 @@ spec:
             cpu: "500m"
             ephemeral-storage: "10Mi"
             memory: "0.5Gi"
+# [END gke_stateful_mysql_deployment_three_zone_ha]
