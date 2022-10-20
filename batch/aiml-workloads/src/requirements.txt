@@ -10,7 +10,7 @@ deprecated==1.2.13
     # via redis
 joblib==1.2.0
     # via scikit-learn
-numpy==1.23.3
+numpy==1.23.4
     # via
     #   pandas
     #   scikit-learn
