@@ -1,0 +1,18 @@
+name: hello-app-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/hello-app-ci.yml'
+      - 'hello-app/**'
+  pull_request:
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build hello-app container
+        run: |
+          cd hello-app
+          docker build --tag hello-app .

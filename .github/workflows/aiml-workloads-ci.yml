@@ -1,0 +1,18 @@
+name: aiml-workloads-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/aiml-workloads-ci.yml'
+      - 'batch/aiml-workloads/**'
+  pull_request:
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build aiml-workloads container
+        run: |
+          cd batch/aiml-workloads/src
+          docker build --tag aiml-workloads .
