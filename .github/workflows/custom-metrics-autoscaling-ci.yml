@@ -1,0 +1,25 @@
+name: custom-metrics-autoscaling-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/custom-metrics-autoscaling-ci.yml'
+      - 'custom-metrics-autoscaling/**'
+  pull_request:
+    paths:
+      - '.github/workflows/custom-metrics-autoscaling-ci.yml'
+      - 'custom-metrics-autoscaling/**'
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build direct-to-sd container
+        run: |
+          cd custom-metrics-autoscaling/direct-to-sd
+          docker build --tag direct-to-sd .
+      - name: build prometheus-to-sd container
+        run: |
+          cd custom-metrics-autoscaling/prometheus-to-sd
+          docker build --tag prometheus-to-sd .

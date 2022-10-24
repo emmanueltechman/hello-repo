@@ -1,0 +1,21 @@
+name: hello-app-tls-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/hello-app-tls-ci.yml'
+      - 'hello-app-tls/**'
+  pull_request:
+    paths:
+      - '.github/workflows/hello-app-tls-ci.yml'
+      - 'hello-app-tls/**'
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build hello-app-tls container
+        run: |
+          cd hello-app-tls
+          docker build --tag hello-app-tls .

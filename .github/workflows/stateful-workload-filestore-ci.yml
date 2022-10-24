@@ -1,0 +1,21 @@
+name: stateful-workload-filestore-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/stateful-workload-filestore-ci.yml'
+      - 'stateful-workload-filestore/**'
+  pull_request:
+    paths:
+      - '.github/workflows/stateful-workload-filestore-ci.yml'
+      - 'stateful-workload-filestore/**'
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build stateful-workload-filestore container
+        run: |
+          cd stateful-workload-filestore
+          docker build --tag stateful-workload-filestore .

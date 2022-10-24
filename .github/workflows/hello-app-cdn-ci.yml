@@ -1,0 +1,21 @@
+name: hello-app-cdn-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/hello-app-cdn-ci.yml'
+      - 'hello-app-cdn/**'
+  pull_request:
+    paths:
+      - '.github/workflows/hello-app-cdn-ci.yml'
+      - 'hello-app-cdn/**'
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build hello-app-cdn container
+        run: |
+          cd hello-app-cdn
+          docker build --tag hello-app-cdn .

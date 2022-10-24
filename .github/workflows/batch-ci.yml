@@ -1,12 +1,15 @@
-name: aiml-workloads-ci
+name: batch-ci
 on:
   push:
     branches:
       - main
     paths:
-      - '.github/workflows/aiml-workloads-ci.yml'
-      - 'batch/aiml-workloads/**'
+      - '.github/workflows/batch-ci.yml'
+      - 'batch/**'
   pull_request:
+    paths:
+      - '.github/workflows/batch-ci.yml'
+      - 'batch/**'
 jobs:
   job:
     runs-on: ubuntu-20.04

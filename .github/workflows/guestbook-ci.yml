@@ -1,0 +1,25 @@
+name: guestbook-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/guestbook-ci.yml'
+      - 'guestbook/**'
+  pull_request:
+    paths:
+      - '.github/workflows/guestbook-ci.yml'
+      - 'guestbook/**'
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build redis-follower container
+        run: |
+          cd guestbook/redis-follower
+          docker build --tag redis-follower .
+      - name: build php-redis container
+        run: |
+          cd guestbook/php-redis
+          docker build --tag php-redis .

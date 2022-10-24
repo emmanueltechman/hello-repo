@@ -1,0 +1,21 @@
+name: hello-app-redis-ci
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/hello-app-redis-ci.yml'
+      - 'hello-app-redis/**'
+  pull_request:
+    paths:
+      - '.github/workflows/hello-app-redis-ci.yml'
+      - 'hello-app-redis/**'
+jobs:
+  job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: build hello-app-redis container
+        run: |
+          cd hello-app-redis
+          docker build --tag hello-app-redis .
