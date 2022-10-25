@@ -12,10 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.12.5
-ADD . /go/src/prometheus-dummy-exporter
-RUN go get github.com/prometheus/client_golang/prometheus
-RUN CGO_ENABLED=0 GOOS=linux go install prometheus-dummy-exporter
+FROM golang:1.19.2 as builder
+WORKDIR /app
+COPY * ./
+RUN CGO_ENABLED=0 GOOS=linux go build -o /prometheus-to-sd
 
-FROM gcr.io/distroless/static:latest
-COPY --from=0 /go/bin/prometheus-dummy-exporter .
+FROM gcr.io/distroless/base-debian11
+WORKDIR /
+COPY --from=builder /prometheus-to-sd /prometheus-to-sd
+ENV PORT 8080
+USER nonroot:nonroot
+CMD ["/prometheus-to-sd"]

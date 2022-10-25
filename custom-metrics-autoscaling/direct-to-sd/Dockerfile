@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.15.11
-ADD . /go/src/sd-dummy-exporter
-RUN go get cloud.google.com/go/compute/metadata
-RUN go get golang.org/x/oauth2
-RUN go get cloud.google.com/go/monitoring/apiv3
-RUN CGO_ENABLED=0 GOOS=linux go install sd-dummy-exporter
+FROM golang:1.19.2 as builder
+WORKDIR /app
+COPY * ./
+RUN CGO_ENABLED=0 GOOS=linux go build -o /direct-to-sd
 
-FROM gcr.io/distroless/static:latest
-COPY --from=0 /go/bin/sd-dummy-exporter .
+FROM gcr.io/distroless/base-debian11
+WORKDIR /
+COPY --from=builder /direct-to-sd /direct-to-sd
+ENV PORT 8080
+USER nonroot:nonroot
+CMD ["/direct-to-sd"]

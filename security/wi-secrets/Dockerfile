@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.18 as builder
+FROM golang:1.19.2 as builder
 WORKDIR /app
-RUN go mod init secret-test
+RUN go mod init wi-secrets
 RUN go get cloud.google.com/go/secretmanager/apiv1
 RUN go get google.golang.org/genproto/googleapis/cloud/secretmanager/v1
 COPY *.go ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o /secret-access
+RUN CGO_ENABLED=0 GOOS=linux go build -o /wi-secrets
 
-FROM alpine
+FROM gcr.io/distroless/base-debian11
 WORKDIR /
-RUN apk add --no-cache ca-certificates
-COPY --from=builder /secret-access /secret-access
-CMD ["/secret-access"]
+COPY --from=builder /wi-secrets /wi-secrets
+USER nonroot:nonroot
+CMD ["/wi-secrets"]

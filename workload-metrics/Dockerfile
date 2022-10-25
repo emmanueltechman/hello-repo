@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.17-alpine as builder
-WORKDIR /src
-ADD . /src
-RUN CGO_ENABLED=0 go build -o /workload-metrics
+FROM golang:1.19.2 as builder
+WORKDIR /app
+COPY * ./
+RUN CGO_ENABLED=0 GOOS=linux go build -o /workload-metrics
 
-FROM gcr.io/distroless/static
-COPY --from=builder /workload-metrics workload-metrics
+FROM gcr.io/distroless/base-debian11
+WORKDIR /
+COPY --from=builder /workload-metrics /workload-metrics
+USER nonroot:nonroot
+ENTRYPOINT ["/workload-metrics"]
